@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block body %}
+<form class="form-inline"  action="saves" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="firstname">Firstname</label>
+        <input type="text" name="firstname" class="form-control" style="width:20%;" required="required"/>
+        <label for="lastname">Lastname</label>
+        <input type="text" name="lastname" class="form-control" style="width:20%;" required="required"/>
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" style="width:20%;" required="required"/>
+        <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+    </div>
+</form>
+<br />
+<table class="table table-bordered">
+    <thead class="alert-info">
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            
+            <td>{{ member.first_name }}</td>
+            <td>{{ member.last_name }}</td>
+            <td>{{ member.email }}</td>
+            <td><center><a class="btn btn-sm btn-warning" href="show_edit/{{ member.id }}"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                         <a class="btn btn-sm btn-danger" href="delete/{{ member.id }}"><span class="glyphicon glyphicon-trash"></span> Remove</a></center></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
